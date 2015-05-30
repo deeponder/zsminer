@@ -1,0 +1,63 @@
+<?php
+
+class NewControllerCase6{
+    ##各省录取信息表provinceentrance表缺少相关域，需要先添加
+
+	function searchByYear($f3){
+        ########################获取检索参数#############################################
+        #$province = $f3->get("PARAMS.province");
+        $yearString = $f3->get("GET.yearString");
+        #echo $yearString;
+
+        #############################按年份检索各省高考信息库############################
+        #$sql = 'select provinceId,keyline as "重点线",yesline as "录取线",highscore as "最高分",avgscore as "平均分",yeskeydis as "低重差",avgyesdis as "平重差",keylineweici as "重点线位次" from provinceentrance where year="'.$yearString.'"';
+        $sql = 'select provinceId,keyline,yesline,highscore,avgscore,yeskeydis,avgyesdis,keylineweici from provinceentrance where year="'.$yearString.'"';        
+        #echo $sql;
+
+        $f3->set("results", $f3->get("DB")->exec($sql));
+        $provinceArr = $f3->get("results");
+        #var_dump($provinceArr);
+
+
+        foreach($provinceArr as & $pro)
+        {
+            foreach($pro as $key=>$value)
+            {
+                switch ($key)
+                {                   
+                    case "provinceId":
+                    {
+                        $sfSql = "select name from province where id=\"".$value."\"";
+                        //echo "$sfSql<br>";
+                        $f3->set("sfArr", $f3->get("DB")->exec($sfSql));
+                        $sfArr = $f3->get("sfArr");
+                        //var_dump($sfArr);
+                        if ($sfArr)
+                        {
+                            $pro["省份"]=$sfArr[0]["name"];#！！！注意
+                        }
+                        else
+                        {
+                            $pro["省份"]="省份编码错误";
+                        }                       
+                        //unset($std[$key]);
+                    }
+                    break;
+                }  
+            }
+        }
+        unset($pro);
+        #var_dump($provinceArr);
+        #echo "<hr>";
+                
+        ###########################结果统计##############################################
+        $f3->set("year", $yearString);
+        $f3->set("case6Year","year");//用于下载
+        $f3->set("resultOrder", $provinceArr);
+        $f3->set("case6Results","resultOrder");  //用于下载      
+        #echo Template::instance()->render('application/case6sby.html'); 
+        #echo "<hr>";
+        $f3->set('template','case6sby.html');
+        echo Template::instance()->render('layout.htm');
+    }
+}

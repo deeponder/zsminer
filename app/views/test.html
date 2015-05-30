@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>分页测试</title>
+</head>
+<body>
+	<repeat group="{{ @articleList.subset }}" value="{{ @article }}">
+	  <h2>{{ @article.name }}</h2>
+	  <p>{{ @article.cityCode }}</p>
+	</repeat>
+
+	<pagebrowser items="{{ @articleList.total }}" limit="{{ @articleList.limit }}"/>
+</body>
+</html>

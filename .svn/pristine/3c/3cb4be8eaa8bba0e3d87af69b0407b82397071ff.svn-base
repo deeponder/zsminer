@@ -1,0 +1,238 @@
+<?php
+
+class NewControllerCase5{
+
+    /*
+    此处需要新建视图create view searchstudentsbyyear as select sexId,provinceId,politicalId,nationId,year from student inner join entrance on student.entranceNumber=entrance.entranceNumber;
+    */
+    function searchStudentByYear($f3){
+        #############################获取检索信息########################################
+        $yearString = $f3->get("GET.yearString");
+        #var_dump($yearString);
+        #echo "<hr>";
+        
+        //$provinceArr = array("")
+
+        #############################按年份检索学生库和考生库，内连接########################################
+        ######################################按年份检索视图#################################################
+        ######################################各省人数统计#################################################
+        $sqlState1 = "select provinceId,count(provinceId) as '录取人数' from searchstudentsbyyear where year=\"".$yearString."\""." group by provinceId order by provinceId ASC";
+
+        #echo $sqlState1;
+        
+        $f3->set("sqlState1Result", $f3->get("DB")->exec($sqlState1));
+        $stdArr = $f3->get("sqlState1Result");
+        #var_dump($stdArr);
+
+        //将省份编码转化成省份名称
+        foreach($stdArr as & $std)
+        {
+            foreach($std as $key=>$value)
+            {
+                switch ($key)
+                {                   
+                    case "provinceId":
+                    {
+                        $sfSql = "select name from province where id=\"".$value."\"";
+                        //echo "$sfSql<br>";
+                        $f3->set("sfArr", $f3->get("DB")->exec($sfSql));
+                        $sfArr = $f3->get("sfArr");
+                        //var_dump($sfArr);
+                        if ($sfArr)
+                        {
+                            $std["省份"]=$sfArr[0]["name"];#！！！注意
+                        }
+                        else
+                        {
+                            $std["省份"]="省份编码错误";
+                        }                       
+                        //unset($std[$key]);
+                    }
+                    break;
+                    /*case "录取人数":
+                    {
+
+                    }
+                    break;*/
+                }  
+            }
+        }
+        unset($std);
+        #var_dump($stdArr);
+        #echo "<hr>";
+
+        #########################################各省男女统计#######################################
+        foreach($stdArr as & $std)
+        {
+
+            $sfSql = "select sexId,count(sexId) as num from searchstudentsbyyear where year=\"".$yearString."\""." and provinceId=\"".$std["provinceId"]."\""." group by sexId order by sexId asc";
+            //echo "$sfSql<br>";
+            $f3->set("sfArr", $f3->get("DB")->exec($sfSql));
+            $sfArr = $f3->get("sfArr");
+            //var_dump($sfArr);
+
+            ######先添加这些属性的索引，防止最后索引错误！！！
+            $std["男生"]=0;#！！！注意
+            $std["女生"]=0;#！！！注意
+            if ($sfArr)
+            {
+                foreach($sfArr as $sf)
+                {
+                    if (1==$sf["sexId"])
+                    {
+                        $std["男生"]=$sf["num"];#！！！注意
+                    }
+                    if (2==$sf["sexId"])
+                    {
+                        $std["女生"]=$sf["num"];#！！！注意
+                    }
+                }
+            }
+            /*else
+            {
+                $std["男生"]=0;#！！！注意
+                $std["女生"]=0;#！！！注意
+            } */                         
+        }
+        unset($std);
+        #var_dump($stdArr);
+        #echo "<hr>";
+
+
+        #########################################各省政治面貌统计#######################################
+        foreach($stdArr as & $std)
+        {
+
+            $sfSql = "select politicalId,count(politicalId) as num from searchstudentsbyyear where year=\"".$yearString."\""." and provinceId=\"".$std["provinceId"]."\""." group by politicalId order by politicalId asc";
+            //echo "$sfSql<br>";
+            $f3->set("sfArr", $f3->get("DB")->exec($sfSql));
+            $sfArr = $f3->get("sfArr");
+            //var_dump($sfArr);
+
+            ######先添加这些属性的索引，防止最后索引错误！！！
+            $std["党员"]=0;#！！！注意
+            $std["预备党员"]=0;#！！！注意
+            $std["团员"]=0;#！！！注意
+            $std["群众"]=0;#！！！注意
+            if ($sfArr)
+            {
+                foreach($sfArr as $sf)
+                {
+                    if (1==$sf["politicalId"])
+                    {
+                        $std["党员"]=$sf["num"];#！！！注意
+                    }
+                    if (2==$sf["politicalId"])
+                    {
+                        $std["预备党员"]=$sf["num"];#！！！注意
+                    }
+                    if (3==$sf["politicalId"])
+                    {
+                        $std["团员"]=$sf["num"];#！！！注意
+                    }
+                    if (13==$sf["politicalId"])
+                    {
+                        $std["群众"]=$sf["num"];#！！！注意
+                    }
+                }
+            }                     
+        }
+        unset($std);
+        #var_dump($stdArr);
+        #echo "<hr>";
+
+
+        #########################################各省民族统计#######################################
+        foreach($stdArr as & $std)
+        {
+
+            $sfSql = "select nationId,count(nationId) as num from searchstudentsbyyear where year=\"".$yearString."\""." and provinceId=\"".$std["provinceId"]."\""." group by nationId order by nationId asc";
+            //echo "$sfSql<br>";
+            $f3->set("sfArr", $f3->get("DB")->exec($sfSql));
+            $sfArr = $f3->get("sfArr");
+            //var_dump($sfArr);
+
+            ######先添加这些属性的索引，防止最后索引错误！！！
+            $std["汉族"]=0;#！！！注意
+            $std["少数名族"]=0;#！！！注意
+            if ($sfArr)
+            {
+                foreach($sfArr as $sf)
+                {
+                    if (1==$sf["nationId"])
+                    {
+                        $std["汉族"]=$sf["num"];#！！！注意
+                    }
+                    else
+                    {
+                        $std["少数名族"]+=$sf["num"];#！！！注意
+                    }
+                }
+            }                        
+        }
+        unset($std);
+        #var_dump($stdArr);
+        #echo "<hr>";
+
+        /*#########################################各省应届往届统计信息#######################################
+        foreach($stdArr as & $std)
+        {
+
+            $sfSql = "select nationId,count(nationId) as num from searchstudentsbyyear where provinceId=\"".$std["provinceId"]."\""." group by nationId order by nationId asc";
+            //echo "$sfSql<br>";
+            $f3->set("sfArr", $f3->get("DB")->exec($sfSql));
+            $sfArr = $f3->get("sfArr");
+            //var_dump($sfArr);
+
+            ######先添加这些属性的索引，防止最后索引错误！！！
+            $std["应届生"]=0;#！！！注意
+            $std["往届生"]=0;#！！！注意
+            if ($sfArr)
+            {
+                foreach($sfArr as $sf)
+                {
+                    if (1==$sf["nationId"])
+                    {
+                        $std["汉族"]=$sf["num"];#！！！注意
+                    }
+                }
+            }
+                     
+        }
+        unset($std);
+        #var_dump($stdArr);
+        #echo "<hr>";*/
+
+
+
+        #######################################各省总计(在统计好的数组后面追加一个元素即可)###################
+        $stdSum = array("省份"=>"总计","录取人数"=>0,"男生"=>0,"女生"=>0,"党员"=>0,"预备党员"=>0,"团员"=>0,"群众"=>0,"汉族"=>0,"少数名族"=>0);#,"应届生"=>0,"往届生"=>0);
+        foreach($stdArr as $sf)
+        {
+            $stdSum["录取人数"]+=$sf["录取人数"];
+            $stdSum["男生"]+=$sf["男生"];
+            $stdSum["女生"]+=$sf["女生"];
+            $stdSum["党员"]+=$sf["党员"];
+            $stdSum["预备党员"]+=$sf["预备党员"];
+            $stdSum["团员"]+=$sf["团员"];
+            $stdSum["群众"]+=$sf["群众"];
+            $stdSum["汉族"]+=$sf["汉族"];
+            $stdSum["少数名族"]+=$sf["少数名族"];
+            //$stdSum["应届生"]+=$sf["应届生"];
+            //$stdSum["往届生"]+=$sf["往届生"];                   
+        }
+        #var_dump($stdArr);
+        #echo "<hr>";
+        Array_push($stdArr,$stdSum);
+
+        #############################输出################################################
+        
+        $f3->set("year", $yearString);
+        $f3->set("case5Year","year");//用于下载
+        $f3->set("resultOrder", $stdArr);
+        $f3->set("case5Results","resultOrder");  //用于下载      
+        $f3->set('template','case5ssby.html');
+        echo Template::instance()->render('layout.htm');
+    }  
+}
+    

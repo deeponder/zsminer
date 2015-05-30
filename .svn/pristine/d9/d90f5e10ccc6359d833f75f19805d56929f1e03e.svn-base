@@ -1,0 +1,23 @@
+<?php
+require_once 'app/models/DownloadExcelModel.class.php';
+
+class Case5Download {
+	/*
+	*将喜报结果生成的tabel转换成excel并供用户下载
+	*/
+	public function downloadExcel($f3){
+		 //查询数据库找需要的结果
+		$Case5Content=$f3->get('case5Results');
+		//file_put_contents("D:/mylog.log",count($f3->get('resultData')),FILE_APPEND);
+		$objDownExcel=new DownloadExcelModel();
+		//Excel表名称
+        $titleStr="西北工业大学".$f3->get('case5Year')."年本科新生基本情况表";
+        
+        //创建的数据表要保存的字段名数组
+        $filedname=array(0 => '省份',1 =>'录取人数',2 =>'男生',3=>'女生',4=>'党员',5=>'预备党员',6=>'团员',7=>'群众',8=>'汉族',9=>'少数名族');
+        //数据库查询到的内容中在创建Excel时将要用到的几列
+        $tableSequence=array(0=>0, 1=>1, 2 =>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9);
+        //download函数
+		$objDownExcel->download($titleStr,$filedname,$tableSequence,$Case5Content);
+    }
+}

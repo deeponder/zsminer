@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+
+<html lang='zh-cn'>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>各省录取位次统计表</title>
+
+        <!-- Bootstrap -->
+        <link href="app/assets/css/bootstrap.css" rel="stylesheet">
+        <link href="app/assets/css/app.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+        
+    <body>
+        <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3" id="main">
+          <div class="url-position">我的位置>招生宣传>{{ @year}}年各省录取位次统计表</div>
+          <div class="filter-cond">
+            <span>查询条件</span>
+            <form class="form-inline report" action="./6sby" method="get" onsubmit="return checkinput();">
+            <div class="form-group form-margin">
+                <label for="inputYear">年份</label>
+                <select class="form-control" name="yearString" id="inputYear">
+                    <option>2009</option>
+                    <option>2010</option>
+                    <option>2011</option>
+                    <option>2012</option>
+                    <option>2013</option>
+                    <option>2014</option>
+                </select>
+            </div>
+              <button type="submit" class="btn btn-primary">查询</button>
+            </form>
+        </div>
+        
+        <div id="table-cont">
+            <a href="./downloadCase6Excel" class="download">下载</a>
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                    <th colspan="19"><h4>西北工业大学{{ @year }}年本科招生录取分数线及平均位次统计表</h4></th>
+                    </tr>
+                    <tr>
+                        <th rowspan="3">省份</th>
+                        <th colspan="11">文科</th>
+                        <th colspan="6">理科</th>
+                        <th rowspan="3">备注</th>
+                    </tr>
+                    <tr>
+                      <th colspan="11">1</th>
+                      <th colspan="6">2</th>
+                    </tr>
+                    <tr>
+                      <td>重点线</td>
+                      <td>录取线</td>
+                      <td>最高分</td>
+                      <td>平均分</td>
+                      <td>低重差</td>
+                      <td>平重差</td>
+                      <td>最高分位次</td>
+                      <td>重点线位次</td>
+                      <td>最低分位次</td>
+                      <td>平均分位次</td>
+                      <td>平均分位次/重点线上线人数</td>
+                      <td>重点线</td>
+                      <td>录取线</td>
+                      <td>最高分</td>
+                      <td>平均分</td>
+                      <td>平重差</td>
+                      <td>最低位次</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <repeat group="{{ @resultOrder }}" value="{{ @item }}">
+                        <tr>                   
+                            <th><span>{{ @item["省份"]  }} </span></th>
+                            <td><span>{{ @item["keyline"]  }} </span></td>
+                            <td><span>{{ @item["yesline"]  }} </span></td>
+                            <td><span>{{ @item["highscore"]  }} </span></td>
+                            <td><span>{{ @item["avgscore"]  }} </span></td>
+                            <td><span>{{ @item["yeskeydis"]  }} </span></td>
+                            <td><span>{{ @item["avgyesdis"]  }} </span></td>
+                            <td><span>{{ @item["keylineweici"]  }} </span></td>
+                        </tr>                                
+                    </repeat>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="19">注：低重差=录取线-重点线　　　平重差=平均分-录取线</td>
+                    </tr>
+                </tfoot>
+              </table>
+            </div>
+            <nav>
+              <ul class="pagination">
+                <li class="disabled">
+                  <span>
+                    <span aria-hidden="true">&laquo;</span>
+                  </span>
+                </li>
+                <li class="active">
+                  <span>1 <span class="sr-only">(current)</span></span>
+                </li>
+                <li><span>2</span></li>
+                <li><span>3</span></li>
+                <li><span>4</span></li>
+                <li><span>5</span></li>
+                <li>
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>            
+    </body>
+</html>
+
+

@@ -115,11 +115,20 @@ ul, li {
 
 
 /*******************************************************************************************
- *    header css样式                                                                 *
+ *    header css样式                                                                       *
  *******************************************************************************************/
+.zcheader {
+  padding: 0px 100px;
+}
+.navbar {
+  margin-bottom: 0px;
+}
 .navbar-header {
   /*padding-left: 50px;*/
   /*padding-right: 250px;*/
+}
+.navbar-default {
+  border-color: #3e4651;
 }
 .navbar-header img {
   width: 206px;
@@ -127,25 +136,42 @@ ul, li {
   display: block;
   margin-top: 13px;
 }
-#header .user-name {
+.zcheader .user-name {
   background: url(../images/admin.png) no-repeat left center;
   background-size: 23px 23px;
-  font-size: 16px;
+  font-size: 15px;
   padding-left: 29px;
   padding-right: 5px;
 }
-#header .logout-label{
-  font-size: 16px;
+.zcheader .logout-label{
+  font-size: 15px;
   padding-left: 5px;
-  padding-right: 45px;
+  padding-right: 5px;
 }
-#header .nav span {
+.zcheader .navbar-right li a:hover {
+  background-color: #3E4651;
+  color: #fff;
+}
+.zcheader .navbar-right li a:visited {
+  background-color: #3E4651;
+  color: #fff;
+}
+.zcheader .nav span {
   padding-top: 22.5px;
   padding-bottom: 22.5px;
   line-height: 20px;
   display: block;
   color: #fff;
 }
+.zcheader .navbar-left {
+  margin-left: 130px;
+}
+.zcheader .navbar-left > li > a {
+  font-size: 16px;
+}
+/*.zcheader .navbar-left li:hover {
+  border-top: 2px solid #39CAA3;
+}*/
 #content {
   margin-top: 65px;
 }
@@ -161,6 +187,27 @@ ul, li {
   overflow-y: auto;
   background-color: #F8FCFF;
   border-right: 1px solid #eee;
+}
+#shrink-btn {
+  overflow: hidden;
+  padding-bottom: 10px;
+}
+#shrink-btn img {
+  width: 50px;
+  height: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: block;
+  float: right;
+}
+#shrink-btn img:hover {
+  cursor: pointer;
+}
+#replace-nav {
+  display: none;
+}
+#replace-nav a {
+  text-indent: -999px;
 }
 .nav-sidebar {
   margin-right: -21px;
@@ -199,7 +246,7 @@ ul, li {
 }
 .nav-sidebar li a {
   font-size: 18px;
-  color: #0C4EA7;
+  color: #3E4651;
   padding-left: 68px;
 }
 .sub-item li a {
@@ -243,12 +290,12 @@ ul, li {
   font-size: 15px;
 }
 #main .filter-cond {
-  padding: 10px 25px;
+  padding: 20px 25px;
   /*border-top: 2px solid #D9DADA;*/
   border-bottom: 2px solid #D9DADA;
   border-top: 2px solid #D9DADA;
 }
-#main .filter-cond  {
+#main .filter-cond span {
   font-size: 16px;
   background: url(../images/搜索.png) no-repeat left center;
   padding-left: 23px;
@@ -262,27 +309,41 @@ ul, li {
   color: #4D6079;
   font-size: 15px;
 }
-#main .filter-cond .form-group {
-  padding-right: 30px;
+#main .filter-cond .form-control {
+  border-radius: 0px;
+  height: 30px;
+  padding: 0 10px;
 }
+#main .filter-cond .form-margin {
+  margin-right: 40px;
+}
+
 #main .filter-cond #reset-btn {
   margin-left: 30px;
 }
 #main .filter-cond  button {
   border-radius: 0px;
+  height: 30px;
+  padding: 0 20px;
 }
-
 #table-cont {
   margin-top: 10px;
   padding: 10px;
+  min-height: 420px;
   background-color: #FEFEFE;
 }
-
 #table-cont .download {
   background: url(../images/下载.png) no-repeat left center;
   padding-left: 28px;
   background-size: 20px 20px;
   color: #4D6079;
+}
+#table-cont h4 {
+  text-align: center;
+}
+#table-cont table tr th {
+  text-align: center;
+  vertical-align: middle;
 }
 #table-cont .table-responsive {
   margin-top: 10px;
@@ -295,13 +356,87 @@ ul, li {
 #table-cont nav {
   overflow: hidden;
 }
+#table-cont .area-sort {
+  padding-right: 20px;
+  background: url(../images/down1.png) no-repeat right center;
+
+}
+#table-cont .sum-sort {
+  padding-right: 20px;
+  background: url(../images/down1.png) no-repeat right center;
+}
+/*table th, tr td {
+  text-align: center;
+}*/
 .copy-right {
   padding: 10px;
-  background-color: #0C4EA7;
+  background-color: #3E4651;
 }
 .copy-right p {
   margin: 0px;
   /*line-height: 20px;*/
   color: #F5F8FB;
   text-align: center;
+}
+
+
+/*学校详情css*/
+#table-cont .school-inf {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+#table-cont .school-inf section{
+  overflow: hidden;
+  padding: 10px 32px;
+}
+#table-cont .school-inf h3 {
+  font-size: 17px;
+  margin: 0px;
+  padding: 10px 10px 10px 28px;
+  background: url(../images/学校信息.png) no-repeat left center;
+  background-size: 20px 20px;
+}
+#table-cont .school-inf .left-inf {
+  float: left;
+  width: 40%;
+}
+#table-cont .school-inf .right-inf {
+  float: left;
+  width: 60%;
+}
+#table-cont #contact-way {
+  margin-top: 20px;
+}
+#table-cont #contact-way h3 {
+  background: url(../images/联系方式.png) no-repeat left center;
+  background-size: 20px 20px;
+  overflow: hidden;
+}
+#table-cont .other-inf p {
+  padding-left: 32px;
+}
+#table-cont #contact-way span {
+  margin-left: 200px;
+}
+#table-cont #contact-way h3 span {
+  float: right;
+  font-size: 15px;
+}
+#table-cont #contact-way h3 a {
+  padding-left: 20px;
+  background: url(../images/修改.png) no-repeat left center;
+  background-size: 20px 20px;
+}
+
+/*编辑学校信息详情*/
+#table-cont #school-form {
+  width: 300px;
+  margin: 0 auto;
+}
+#table-cont #school-form .submit-btn {
+  text-align: center;
+}
+#table-cont #school-form button {
+  padding-left: 20px;
+  padding-right: 20px;
 }

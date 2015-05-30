@@ -1,0 +1,30 @@
+<?php
+class ContentController
+{
+  function getXBXX($f3)
+  {
+     $f3->set('template','XBResult.htm');
+     echo Template::instance()->render('layout.htm');
+     //echo "<script>alert('hello');</script>";
+  }
+  function getJYXX($f3)
+  {
+     $f3->set('template','JYResult.htm');
+     echo Template::instance()->render('layout.htm');
+     //echo "<script>alert('hello');</script>";
+  }
+  
+  ################################case5################################
+  function getProSumInfo($f3)
+  {
+     $f3->set('template','beforeCase5.htm');
+     echo Template::instance()->render('layout.htm');
+  }
+
+  ################################case6################################
+  function getProEntrance($f3)
+  {
+     $f3->set('template','beforeCase6.htm');
+     echo Template::instance()->render('layout.htm');
+  }
+}

@@ -1,0 +1,14 @@
+[routes]
+GET /XBXX = ContentController->getXBXX
+GET /JYXX = ContentController->getJYXX
+POST /prosubmit = XBInfoController->getSchoolsByPro
+POST /schoolXBsubmit = XBInfoController->getXBConBySchool
+;下载喜报Excel文件
+GET /downloadXBExcel = XBController->downXBExcel
+
+GET /before5 = ContentController->getProSumInfo
+GET /before6 = ContentController->getProEntrance
+GET /5ssby = NewControllerCase5->searchStudentByYear
+GET /6sby = NewControllerCase6->searchByYear
+GET /downloadCase5Excel = Case5Download->downloadExcel
+GET /downloadCase6Excel = Case6Download->downloadExcel

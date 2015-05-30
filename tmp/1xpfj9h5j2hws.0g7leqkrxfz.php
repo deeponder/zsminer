@@ -94,9 +94,6 @@
           </ul>
         </div>
         <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3" id="main">
-          <div class="url-position">
-            我的位置>招生宣传>各中学学生喜报
-          </div>
          <?php echo $this->render($template,$this->mime,get_defined_vars()); ?>
         <footer class="copy-right">
           <p>西北工业大学本科招生办公室 版权所有</p>
@@ -109,6 +106,63 @@
     <script src="app/assets/javascripts/jquery-1.11.2.min.js"></script>
      <script src="app/assets/javascripts/bootstrap.min.js"></script>
     <script type="text/javascript">
+
+
+        /**
+         * form表单的Ajax局部刷新
+         * 
+         * @param  {[type]} event)                     {               event.preventDefault();                         var url [description]
+         * @return {[type]}        [description]
+         */
+        $("#choosepro").submit(function(event)
+        {   
+
+            event.preventDefault();             
+      // var flag = 0;
+            var url = $(this).attr('action');
+            var postdata = $(this).serialize();                
+
+            var request = $.post(
+                url,
+                postdata,
+                formpostcompleted,
+                "json"            
+            );          
+
+            function formpostcompleted(data, status)
+            {
+              // console.log(data[2]);
+              // var proid = data[2];
+              // $('#schoolInfo tbody').empty();
+              $('#schoolInfo tbody').html(data[0]);
+               // init bootpag
+            $('#page-selection').bootpag({
+                total: data[1]
+            }).on("page", function(event, /* page number here */ num){
+                              // console.log(proid);
+
+              $.getJSON('/getpage',{num:num,province:$('#inputProvince').val()},function(res){
+
+                 $("#schoolInfo tbody").html(res[0]); // some ajax content loading...
+
+              });
+            });
+            }
+         }); // end submit function
+    
+
+      $(document).ready(function() {
+        $('.sidebar .sub-item:eq(0)').show();
+        $('.sidebar a.menu-head').click(function(event) {
+          
+          $(this).addClass('current-item').next('ul.sub-item').slideToggle("slow").next('ul.sub-item').slideUp("slow");
+          $('.sidebar a.menu-head').not(this).removeClass('current-item');
+
+          $('.sidebar a.menu-head').not(this).next().css('display', 'none');
+          // $(this).siblings().remove('current-item');
+        });  
+      });
+      
       $(document).ready(function() {
         $('.sidebar .sub-item:eq(0)').show();
         $('.sidebar a.menu-head').click(function(event) {
