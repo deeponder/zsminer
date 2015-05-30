@@ -41,30 +41,6 @@
 
               <div id="page-selection"></div>
             </div>
-            <!-- 分页 -->
-
-             
-          <!--   <nav>
-              <ul class="pagination">
-                <li class="disabled">
-                  <span>
-                    <span aria-hidden="true">&laquo;</span>
-                  </span>
-                </li>
-                <li class="active">
-                  <span>1 <span class="sr-only">(current)</span></span>
-                </li>
-                <li><span>2</span></li>
-                <li><span>3</span></li>
-                <li><span>4</span></li>
-                <li><span>5</span></li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav> -->
           </div>
        
         

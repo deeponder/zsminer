@@ -191,7 +191,8 @@
             $f3->set('wor',$wor);
             $f3->set('property',$property);
             $f3->set('ci',$ci); 
-            echo Template::instance()->render('school-detail.html');
+            $f3->set('template','school-detail.html');
+            echo Template::instance()->render('layout.htm');
         }
 
         //编辑中学联系人信息
@@ -200,7 +201,8 @@
              $f3->set('code',$code);
              $f3->set('position',$_GET['position']);
              $f3->set('tel',$_GET['tel']);
-             echo Template::instance()->render('edit-detail.html');
+             $f3->set('template','edit-detail.html');
+             echo Template::instance()->render('layout.htm');
         }
 
         //保存中学联系人信息

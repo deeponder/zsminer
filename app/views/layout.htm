@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>招生喜报</title>
+    <title>中学分布及基本情况</title>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -48,11 +48,11 @@
               <ul class="sub-item" style="display: block">
                 <li><a href="">各中学录取人数统计</a></li>
                 <li><a href="">各中学录取学生情况查看</a></li>
-                <li><a class="selected-item" href="./XBXX">各中学学生喜报</a></li>
-                <li><a href="./JYXX">各中学学生就业去向表</a></li>
+                <li><a href="">各中学学生喜报</a></li>
+                <li><a href="">各中学学生就业去向表</a></li>
                 <li><a href="">各省录取基本信息统计表</a></li>
                 <li><a href="">各省录取位次统计表</a></li>
-                <li><a href="">各省中学分布情况及基本情况</a></li>
+                <li><a class="selected-item" href="">各省中学分布情况及基本情况</a></li>
               </ul>
             </li>
             <li class="evaluate-item">
@@ -61,7 +61,7 @@
                 <li><a href="">各中学录取人数统计</a></li>
                 <li><a href="">各中学录取学生情况查看</a></li>
                 <li><a href="">各中学学生喜报</a></li>
-                <li><a href="./JYXX">各中学学生就业去向表</a></li>
+                <li><a href="">各中学学生就业去向表</a></li>
                 <li><a href="">各省录取基本信息统计表</a></li>
                 <li><a href="">各省录取位次统计表</a></li>
                 <li><a href="">各省中学分布情况及基本情况</a></li>
@@ -105,8 +105,27 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="app/assets/javascripts/jquery-1.11.2.min.js"></script>
      <script src="app/assets/javascripts/bootstrap.min.js"></script>
+     <script src="//raw.github.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
-
+      
+       $('#school-form').submit(function (event) {
+        
+        // alert('hell');
+        event.preventDefault();
+        var url = $(this).attr('action');
+        var postdata = $(this).serialize();
+        // alert(postdata);
+        var request = $.post(
+                url,
+                postdata,
+                formpostcompleted,
+                "text"
+        );
+        function formpostcompleted(data, status) {
+            // console.log(data);
+            alert(data);
+        }
+    });
 
         /**
          * form表单的Ajax局部刷新

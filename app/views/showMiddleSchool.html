@@ -1,72 +1,38 @@
-     
-          <div class="url-position">我的位置>招生宣传>各省中学分布情况及基本情况</div>
-          <div class="filter-cond">
-            <span>查询条件</span>
-            <form class="form-inline report" action="/getMiddleSchool" id="choosepro" method="post">
-              <div class="form-group form-margin">
-                <label for="inputProvince">省份</label>
-                <select class="form-control" id="inputProvince" name="province">
+<div class="url-position">我的位置>招生宣传>各省中学分布情况及基本情况</div>
+<div class="filter-cond">
+    <span>查询条件</span>
+    <form class="form-inline report" action="/getMiddleSchool" id="choosepro" method="post">
+        <div class="form-group form-margin">
+            <label for="inputProvince">省份</label>
+            <select class="form-control" id="inputProvince" name="province">
+                <repeat group="{{@proname}}" value="{{@proname}}">
 
-                  <repeat group="{{@proname}}" value="{{@proname}}">
-                  
-						<option value="{{@proname['id']}}">{{@proname['name']}}</option>
-				  </repeat>
-
-                </select>
-              </div>
-              <button type="submit" class="btn btn-primary">查询</button>
-            </form>
-          </div>
-          <div id="table-cont">
-            <a href="" class="download">下载</a>
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped" id="schoolInfo">
-                <thead>
-                    <tr>
-                      <th>省份</th>
-                      <th>地市</th>
-                      <th>中学性质</th>
-                      <th>ID</th>
-                      <th>中学名称</th>
-                      <th>邮编</th>
-                      <th>地址</th>
-                      <th>查看详情</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-
-                </tbody>
-              </table>
-
-              <div id="page-selection"></div>
-            </div>
-            <!-- 分页 -->
-
-             
-          <!--   <nav>
-              <ul class="pagination">
-                <li class="disabled">
-                  <span>
-                    <span aria-hidden="true">&laquo;</span>
-                  </span>
-                </li>
-                <li class="active">
-                  <span>1 <span class="sr-only">(current)</span></span>
-                </li>
-                <li><span>2</span></li>
-                <li><span>3</span></li>
-                <li><span>4</span></li>
-                <li><span>5</span></li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav> -->
-          </div>
-       
-        
-
-  
+                <option value="{{@proname['id']}}">{{@proname['name']}}</option>
+                </repeat>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">查询</button>
+    </form>
+</div>
+<div id="table-cont">
+    <a href="" class="download">下载</a>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" id="schoolInfo">
+            <thead>
+                <tr>
+                    <th>省份</th>
+                    <th>地市</th>
+                    <th>中学性质</th>
+                    <th>ID</th>
+                    <th>中学名称</th>
+                    <th>邮编</th>
+                    <th>地址</th>
+                    <th>查看详情</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div id="page-selection"></div>
+    </div>
+</div>
